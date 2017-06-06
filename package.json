@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.1",
     "classnames": "^2.2.5",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-google-login": "^2.8.9",
     "react-mdl": "^1.10.3"
   },
   "devDependencies": {
