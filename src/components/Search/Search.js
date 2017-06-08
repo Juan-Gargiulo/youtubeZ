@@ -1,5 +1,5 @@
 import React            from 'react';
-import Gallery          from './Gallery.js'
+import Gallery          from '../Gallery/Gallery'
 
 import axios            from 'axios'
 
@@ -41,7 +41,7 @@ class Search extends React.Component {
     }
 
     axios.get('https://www.googleapis.com/youtube/v3/search',config)
-        .then( (res) => {
+        .then( res => {
             this.setState({
                 videos: res.data.items
             })
@@ -52,6 +52,7 @@ class Search extends React.Component {
   render() {
 
     const { tkn } = this.props
+    console.log(this.props)
 
     if( !tkn ) {
         return null

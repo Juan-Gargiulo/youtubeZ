@@ -1,5 +1,8 @@
 import React        from 'react';
 import GoogleLogin  from 'react-google-login';
+import { connect } from 'react-redux'
+
+import { LoginAct } from '../App/AppActions.js'
  
 class Login extends React.Component{
  
@@ -8,9 +11,14 @@ class Login extends React.Component{
   }
 
   success = (response) => {
-    const { loginHandler } = this.props;
-    loginHandler(response);
-    console.log(response);
+
+    const { LoginAct } = this.props
+
+/*    const { loginHandler } = this.props;
+    loginHandler(response);*/
+    
+    LoginAct(response)
+
   };
 
   error = (response) => {
@@ -39,11 +47,18 @@ class Login extends React.Component{
           // className='button'
           // style={{ color: 'red' }}
       >
-        <span>perro</span>
+        <span>Login</span>
       </GoogleLogin>
     );
   }
  
 }
  
-export default Login;
+const mapDispatchToProps = {
+  LoginAct
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Login);

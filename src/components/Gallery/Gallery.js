@@ -1,5 +1,5 @@
 import React from 'react';
-import Results from './Results.js';
+import Results from '../Results/Results'
 
 class Gallery extends React.Component {
   constructor() {

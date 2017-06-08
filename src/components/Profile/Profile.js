@@ -4,8 +4,6 @@ import { Button } from 'react-mdl'
 
 const Profile = ( {profile, logout} ) => {
 
-    console.log(profile);
-
     if (profile.imageUrl === null){
         return null
     }
