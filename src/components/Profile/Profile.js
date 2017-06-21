@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 import { Button } from 'react-mdl'
 
@@ -10,11 +11,16 @@ const Profile = ( {profile, logout} ) => {
 
     return (
         <div>
-            <img src={ profile.imageUrl } />
-            <p>{ profile.email}</p>
+            <img src={ profile.imageUrl } alt={ profile.email } />
+            <p>{ profile.email }</p>
             <Button raised colored onClick={logout}>Logout</Button>
         </div>
     );
 };
+
+Profile.PropTypes = {
+    profile: PropTypes.object,
+    logout: PropTypes.func
+}
 
 export default Profile;

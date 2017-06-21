@@ -1,22 +1,12 @@
 import React from 'react';
 import Results from '../Results/Results'
+import PropTypes from 'prop-types'
 
-class Gallery extends React.Component {
-  constructor() {
-    super();
-  }
-
-
-
-  render() {
-
-    const { videos } = this.props
-
-    console.log(videos)
+const Gallery = ( {videos}) => {
 
     if(Object.keys(videos).length === 0)
         return null
-     
+
     return (
         <div>
             { videos.map( v => 
@@ -26,8 +16,10 @@ class Gallery extends React.Component {
               /> )}
         </div>
     )
+}
 
-  }
+Gallery.PropTypes = {
+  videos: PropTypes.object
 }
 
 export default Gallery;

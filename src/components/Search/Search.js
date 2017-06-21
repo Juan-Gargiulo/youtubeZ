@@ -1,9 +1,12 @@
-import React            from 'react';
+import React, { Component } from 'react'
+import axios            from 'axios'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+//components
 import Gallery          from '../Gallery/Gallery'
 
-import axios            from 'axios'
-
-class Search extends React.Component {
+class Search extends Component {
   constructor() {
     super();
     this.state = { 
@@ -50,14 +53,6 @@ class Search extends React.Component {
   }
 
   render() {
-
-    const { tkn } = this.props
-    console.log(this.props)
-
-    if( !tkn ) {
-        return null
-    }
-
     return (
         <div>
             <label>
@@ -77,4 +72,15 @@ class Search extends React.Component {
 
 }
 
-export default Search;
+Search.PropTypes = {
+    tkn: PropTypes.string
+}
+
+const mapStateToProps = state => ({
+  tkn: state.app.tkn,
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Search);

@@ -1,22 +1,15 @@
-import React        from 'react';
-import GoogleLogin  from 'react-google-login';
+import React, { Component } from 'react';
+import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux'
 
+//actions
 import { LoginAct } from '../App/AppActions.js'
  
-class Login extends React.Component{
+class Login extends Component{
  
-  constructor (props, context) {
-    super(props, context);
-  }
-
   success = (response) => {
 
-    const { LoginAct } = this.props
-
-/*    const { loginHandler } = this.props;
-    loginHandler(response);*/
-    
+    const { LoginAct } = this.props 
     LoginAct(response)
 
   };

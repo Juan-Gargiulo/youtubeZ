@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router'
 
+
+//actions
 import { LoginAct, LogoutAct } from './AppActions.js'
 
+//css
 import './App.css';
-import Login                from '../Login/Login'
-import Profile              from '../Profile/Profile'
-import Search               from '../Search/Search'
+
+//components
+import Profile from '../Profile/Profile'
 
 class App extends Component {
 
   constructor() {
     super();
-
     this.logoutHandler = this.logoutHandler.bind(this);
   }
 
@@ -39,17 +42,16 @@ class App extends Component {
 
   render() {
 
-    const { logged, profile, tkn } = this.props
-
-
+    const { logged, profile } = this.props
 
     return (
       <div>
         <h3>YoutubeZ</h3>
-        {logged && <Profile profile={profile.profileObj} logout={this.logoutHandler} />}
+        { logged && <Profile profile={profile.profileObj} logout={this.logoutHandler} /> }
+        <Link to="/search">search</Link>
 
-        {this.props.children}
-        
+
+        {this.props.children}   
       </div>
     );
   }

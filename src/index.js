@@ -1,26 +1,56 @@
-//import 'babel-polyfill';
-import React from 'react';
-import { render } from 'react-dom';
-import { browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { createStore, applyMiddleware } from 'redux';
+
+//import { createDevTools } from 'redux-devtools'
+//import LogMonitor from 'redux-devtools-log-monitor'
+//import DockMonitor from 'redux-devtools-dock-monitor'
+
+//libs
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { Router, Route, browserHistory, BrowserRouter } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import thunk from 'redux-thunk';
 
-//import './global.scss';
-//import '../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min';
+//reducers
+import AppReducers from './components/App/AppReducers'
 
-import Reducers from './reducers';
+//components
+import App from './components/App/App'
+import Search from './components/Search/Search'
+import Login from './components/Login/Login'
 
-import Root from './Root';
 
-const store = createStore(Reducers, applyMiddleware(thunk));
-const history = syncHistoryWithStore(browserHistory, store);
+const reducer = combineReducers({
+  app: AppReducers,
+  routing: routerReducer
+})
 
-render(
-  <Root store={store} history={history} />,
-  document.getElementById('root'),
-);
+/*const DevTools = createDevTools(
+  <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
+    <LogMonitor theme="tomorrow" preserveScrollTop={false} />
+  </DockMonitor>
+)*/
 
-if (module.hot) {
-  module.hot.accept();
-}
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+)
+  //DevTools.instrument()
+const history = syncHistoryWithStore(browserHistory, store)
+
+ReactDOM.render(
+  <Provider store={store}>
+    <div>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          {/*<IndexRoute component={Search}/>*/}
+          <Route path="search" component={Search}/>
+          <Route path="login" component={Login}/>
+        </Route>
+      </Router>
+      {/*<DevTools />*/}
+    </div>
+  </Provider>,
+  document.getElementById('root')
+)
