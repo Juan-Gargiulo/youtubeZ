@@ -4,10 +4,6 @@ const initialState = {
       tkn: null,
       profile: {},
       logged: false,
-      videos: {
-        loading: false,
-        data: {}
-      },
 };
 
 const AppReducers = (state = initialState, action) => {

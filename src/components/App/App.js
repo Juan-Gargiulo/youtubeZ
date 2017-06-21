@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
+import { Link, Redirect, BrowserHistory } from 'react-router'
+import API from '../../api.js'
 
 
 //actions
@@ -19,12 +20,13 @@ class App extends Component {
     this.logoutHandler = this.logoutHandler.bind(this);
   }
 
-  componentDidMount(){
+  componentWillMount(){
     //If apik from localStorage, load the profile and set logged
     const apik = localStorage.getItem('apik');
     if(apik){     
       const profile = JSON.parse(localStorage.getItem('profile'));
       LoginAct(profile)
+      API.setToken(apik)
     } 
   }
 
@@ -32,6 +34,7 @@ class App extends Component {
     LogoutAct()
     localStorage.removeItem('apik')
     localStorage.removeItem('profile')
+    BrowserHistory.push("/login")
   }
 
   loginHandler(user){
@@ -48,7 +51,8 @@ class App extends Component {
       <div>
         <h3>YoutubeZ</h3>
         { logged && <Profile profile={profile.profileObj} logout={this.logoutHandler} /> }
-        <Link to="/search">search</Link>
+        <Link to="/login">>login</Link>
+        <Link to="/search">>search</Link>
 
 
         {this.props.children}   

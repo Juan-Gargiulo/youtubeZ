@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import axios            from 'axios'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+import axios            from 'axios'
+import API from '../../api.js'
 
 //components
 import Gallery          from '../Gallery/Gallery'
@@ -11,7 +13,7 @@ class Search extends Component {
     super();
     this.state = { 
         query: '' ,
-        videos: {}
+        videos: {},
     };
 
     this.handleInputSearch = this.handleInputSearch.bind(this)
@@ -29,27 +31,10 @@ class Search extends Component {
 
     const { tkn } = this.props
     const { query } = this.state
+    console.log(tkn)
+    API.videos.search(query,tkn)
+        .then( res => this.setState({videos: res}) )
 
-    const config = { 
-        method: 'get',
-        headers: {
-            'Authorization': 'Bearer ' + tkn,
-            'Accept': 'application/json'
-        },
-        params: { 
-            'part': 'snippet', 
-            'q': query, 
-            'maxResults': 50
-        }
-    }
-
-    axios.get('https://www.googleapis.com/youtube/v3/search',config)
-        .then( res => {
-            this.setState({
-                videos: res.data.items
-            })
-    })
-    .catch( (err) => console.log(err) )
   }
 
   render() {

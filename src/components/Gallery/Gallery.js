@@ -2,7 +2,7 @@ import React from 'react';
 import Results from '../Results/Results'
 import PropTypes from 'prop-types'
 
-const Gallery = ( {videos}) => {
+const Gallery = ( {videos} ) => {
 
     if(Object.keys(videos).length === 0)
         return null
