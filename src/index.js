@@ -8,18 +8,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { Router, Route, browserHistory, BrowserRouter } from 'react-router'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { routerReducer } from 'react-router-redux'
 import thunk from 'redux-thunk';
 
+//styles
+import 'bootstrap/dist/css/bootstrap.css';
 //reducers
 import AppReducers from './components/App/AppReducers'
-
-//components
-import App from './components/App/App'
-import Search from './components/Search/Search'
-import Login from './components/Login/Login'
-
+//Routes 
+import AppRoutes from './routes.js'
 
 const reducer = combineReducers({
   app: AppReducers,
@@ -36,21 +34,15 @@ const store = createStore(
   reducer,
   applyMiddleware(thunk)
 )
-  //DevTools.instrument()
-const history = syncHistoryWithStore(browserHistory, store)
+
+//DevTools.instrument()
+//const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <Router history={history}>
-        <Route path="/" component={App}>
-          {/*<IndexRoute component={Search}/>*/}
-          <Route path="search" component={Search}/>
-          <Route path="login" component={Login}/>
-        </Route>
-      </Router>
-      {/*<DevTools />*/}
-    </div>
+    <Router>
+      <AppRoutes/>
+    </Router>
   </Provider>,
   document.getElementById('root')
 )

@@ -1,0 +1,19 @@
+  "scripts": {
+    "start": "babel-node src/server",
+    "production": "NODE_ENV=production BABEL_ENV=production npm run build && npm start",
+    "build": "NODE_ENV=production webpack --config webpack.config.babel.js"
+  }
+
+
+  Auto-merging src/public/index.html
+Auto-merging src/index.js
+CONFLICT (content): Merge conflict in src/index.js
+Auto-merging src/components/Search/Search.js
+Auto-merging src/components/Results/Results.js
+CONFLICT (content): Merge conflict in src/components/Results/Results.js
+Auto-merging src/components/Profile/Profile.js
+Removing src/components/Header/header.js
+Auto-merging src/components/App/App.js
+CONFLICT (content): Merge conflict in src/components/App/App.js
+Auto-merging package.json
+CONFLICT (content): Merge conflict in package.json

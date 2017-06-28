@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect, BrowserHistory } from 'react-router'
+import { withRouter, history } from 'react-router-dom'
 import API from '../../api.js'
 
 
@@ -11,12 +11,14 @@ import { LoginAct, LogoutAct } from './AppActions.js'
 import './App.css';
 
 //components
-import Profile from '../Profile/Profile'
+import Header from './Header.js'
+import Profile from '../Profile/Profile.js'
+import Login from '../Login/Login.js'
 
 class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.logoutHandler = this.logoutHandler.bind(this);
   }
 
@@ -26,36 +28,41 @@ class App extends Component {
     if(apik){     
       const profile = JSON.parse(localStorage.getItem('profile'));
       LoginAct(profile)
-      API.setToken(apik)
     } 
   }
 
-  logoutHandler(){
-    LogoutAct()
+  logoutHandler(){    
     localStorage.removeItem('apik')
     localStorage.removeItem('profile')
-    BrowserHistory.push("/login")
+
+    this.props.LogoutAct()
+
+    this.props.history.push('/login')
   }
 
   loginHandler(user){
-    LoginAct(user)
+    this.props.LoginAct(user)
     localStorage.setItem('apik', user.accessToken)
     localStorage.setItem('profile', JSON.stringify(user.profileObj));
   };
 
   render() {
-
-    const { logged, profile } = this.props
-
+    
+    const { logged, profile, children } = this.props
+    
     return (
       <div>
-        <h3>YoutubeZ</h3>
-        { logged && <Profile profile={profile.profileObj} logout={this.logoutHandler} /> }
-        <Link to="/login">>login</Link>
-        <Link to="/search">>search</Link>
-
-
-        {this.props.children}   
+          <div className="row">
+            <div className="col-md-2 text-center">
+              <h3>YoutubeZ</h3>
+              { !logged && <Login/> }
+              { logged && <Profile profile={profile.profileObj} logout={this.logoutHandler} /> }
+              <Header logged={logged}/>
+            </div>
+            <div className="col-md-10">
+              {children}
+            </div>
+          </div>
       </div>
     );
   }
@@ -72,7 +79,7 @@ const mapDispatchToProps = {
   LogoutAct
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(App));

@@ -10,6 +10,7 @@ class Login extends Component{
   success = (response) => {
 
     const { LoginAct } = this.props 
+    console.log(response)
     LoginAct(response)
 
   };

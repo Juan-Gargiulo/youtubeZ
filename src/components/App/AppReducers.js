@@ -10,8 +10,6 @@ const AppReducers = (state = initialState, action) => {
   switch (action.type) {
 
     case types.LOGIN:
-        console.log(action.payload)
-
       return {
         ...state,
         tkn: action.payload.accessToken,
@@ -20,6 +18,7 @@ const AppReducers = (state = initialState, action) => {
       };
 
     case types.LOGOUT:
+      console.log("logout")
       return {
         ...state,
         profile: {},

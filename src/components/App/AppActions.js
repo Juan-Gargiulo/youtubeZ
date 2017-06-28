@@ -11,6 +11,7 @@ export function LoginAct(user) {
 
 export function LogoutAct() {
   return (dispatch) => {
+    console.log("action")
     dispatch({
       type: types.LOGOUT
     });
